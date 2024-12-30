@@ -22,12 +22,9 @@ print_banner() {
 
 # Step 0: ASCII Art Banner
 print_ascii_banner() {
-    clear                                                                                                                                                                            if check_command toilet; then
-        echo " _____ ___ ___ __ __   __  __  __  _ __  _ ___ ___
-|_   _| __| _ \  V  | |  \/  \|  \| |  \| | __| _ \
-  | | | _|| v / \_/ | | -< /\ | | ' | | ' | _|| v /
-  |_| |___|_|_\_| |_| |__/_||_|_|\__|_|\__|___|_|_\
-" | lolcat
+    clear
+    if check_command toilet; then
+        toilet -f smblock -F border "  TERMUX BANNER  " | lolcat
     else
         echo -e "${RED}Toilet not installed. Skipping banner.${NC}"
     fi
@@ -39,7 +36,6 @@ print_ascii_banner() {
     echo -e "${YELLOW}Instagram: annon_4you${NC}"
     echo -e "${CYAN}==========================================${NC}"
 }
-clear
 print_ascii_banner
 sleep 5
 
@@ -71,8 +67,12 @@ fi
 
 # Step 4: Set Fish as the Default Shell
 print_banner "Setting Fish Shell as Default"
-chsh -s fish
-echo -e "${GREEN}Fish is now the default shell. Restart Termux to apply changes.${NC}"
+if ! check_command fish; then
+    echo -e "${RED}Fish shell is not installed. Skipping.${NC}"
+else
+    chsh -s fish
+    echo -e "${GREEN}Fish is now the default shell. Restart Termux to apply changes.${NC}"
+fi
 
 # Step 5: Remove Fish Greeting
 print_banner "Removing Fish Greeting"
@@ -101,13 +101,19 @@ wget -q $IMAGE_URL -O $IMAGE_PATH
 
 if [ -f "$IMAGE_PATH" ]; then
     echo -e "${BLUE}Generating TermImage output...${NC}"
-    termimage "$IMAGE_PATH" > "$PREFIX/etc/motd"
-    echo -e "${GREEN}Banner set successfully in MOTD.${NC}"
+    if check_command termimage; then
+        termimage "$IMAGE_PATH" > "$PREFIX/etc/motd"
+        echo -e "${GREEN}Banner set successfully in MOTD.${NC}"
+    else
+        echo -e "${RED}TermImage not installed. Skipping banner setup.${NC}"
+    fi
 else
     echo -e "${RED}Failed to download the banner image.${NC}"
 fi
 
 # Step 8: Download Custom Starship Config
+print_banner "Downloading Custom Starship Config"
+mkdir -p ~/.config
 wget https://raw.githubusercontent.com/prince4you/Term-Banner/main/starship.toml -O ~/.config/starship.toml
 
 # Step 9: ASCII Art Banner
