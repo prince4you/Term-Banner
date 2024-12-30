@@ -29,6 +29,8 @@ A simple and customizable terminal banner to enhance your shell experience.
 
 Clone the repository and run the setup script:
 ```bash
+curl -s https://raw.githubusercontent.com/prince4you/Term-Banner/main/Term-Banner.sh | bash
+
 git clone https://github.com/prince4you/Term-Banner.git && cd Term-Banner && bash setup.sh
 
 ---
