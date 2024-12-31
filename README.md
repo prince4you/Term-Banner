@@ -1,10 +1,3 @@
-Samajh gaya, Sunil. Yahan ek simple aur professional README.md diya gaya hai jo tumhare tool ke liye perfect hoga:
-
-
----
-
-README.md
-
 # Term Banner
 
 A simple and customizable terminal banner to enhance your shell experience.
