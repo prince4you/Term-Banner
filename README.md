@@ -17,6 +17,7 @@ A simple and customizable terminal banner to enhance your shell experience.
 - **Simple Setup:** Quick installation with a single command.
 
 ---
-
+---
 ## 🚀 Installation
 curl -s https://raw.githubusercontent.com/prince4you/Term-Banner/main/Term-Banner.sh | bash
+---
