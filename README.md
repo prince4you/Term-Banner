@@ -22,5 +22,4 @@ A simple and customizable terminal banner to enhance your shell experience.
 
 ```shell
 curl -s https://raw.githubusercontent.com/prince4you/Term-Banner/main/Term-Banner.sh | bash
----
 ```
