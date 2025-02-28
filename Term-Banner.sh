@@ -1,5 +1,6 @@
 #!/bin/bash
 clear
+
 # Colors for output
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -13,6 +14,49 @@ check_command() {
     command -v "$1" >/dev/null 2>&1
 }
 
+# Function: Print Banner
+print_banner() {
+    echo -e "${CYAN}==========================================${NC}"
+    echo -e "${YELLOW}$1${NC}"
+    echo -e "${CYAN}==========================================${NC}"
+}
+
+# Function: Update and Upgrade Termux
+update_termux() {
+    print_banner "Updating and Upgrading Termux Packages"
+    pkg update -y && pkg upgrade -y
+    echo -e "${GREEN}Packages updated successfully.${NC}"
+}
+
+# Function: Install Required Packages
+install_packages() {
+    print_banner "Installing Required Packages"
+    packages=(starship termimage fish python wget toilet)
+    for pkg in "${packages[@]}"; do
+        if ! check_command "$pkg"; then
+            echo -e "${BLUE}Installing $pkg...${NC}"
+            pkg install "$pkg" -y
+        else
+            echo -e "${GREEN}$pkg is already installed.${NC}"
+        fi
+    done
+}
+
+# Function: Install Lolcat Python Package
+install_lolcat() {
+    print_banner "Installing Lolcat Python Package"
+    if ! check_command lolcat; then
+        pip install lolcat
+        echo -e "${GREEN}Lolcat installed.${NC}"
+    else
+        echo -e "${GREEN}Lolcat is already installed.${NC}"
+    fi
+}
+
+# Call the functions
+update_termux
+install_packages
+install_lolcat
 # Function: Print Banner
 print_banner() {
     echo -e "${CYAN}==========================================${NC}"
